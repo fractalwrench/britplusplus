@@ -1,9 +1,3 @@
-### StartProgram
-Denotes the start of a program. There can be only one program in each source file. Otherwise synonymous with StartBlock.
-
-### EndProgram
-Denotes the end of a program. There can be only one program in each source file. Otherwise synonymous with EndBlock.
-
 # Branching
 
 ### If
@@ -93,3 +87,6 @@ Prints a value to StdOut.
 
 ### ReadInput
 Reads values from StdIn.
+
+### UseDialect
+All source code after the current line is interpreted using a different dialect of BritPlusPlus.
