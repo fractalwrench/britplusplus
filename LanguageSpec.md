@@ -1,8 +1,9 @@
 ### StartProgram
-Denotes the start of a program. There can be only one program in each source file.
+Denotes the start of a program. There can be only one program in each source file. Otherwise synonymous with StartBlock.
 
 ### EndProgram
-Denotes the end of a program. There can be only one program in each source file.
+Denotes the end of a program. There can be only one program in each source file. Otherwise synonymous with EndBlock.
+
 # Branching
 
 ### If
@@ -27,6 +28,9 @@ Literal value that always evaluates as true.
 
 ### False
 Literal value that always evaluates as false.
+
+### ""
+Literal strings are allowed.
 
 # Operators
 
@@ -63,11 +67,29 @@ Compounds two boolean expressions, evaluating as true if both are correct.
 ### Not
 Negates a boolean expression.
 
-# StdLib
-Print
+### AssignmentOperator
+Assigns a value to a variable from a literal, input, or function.
 
+# Methods
 
+### DeclareMethod
+Declares a method with a unique identifier, and list of argument identifiers. StartBlock and EndBlock define the method body.
 
+### InvokeMethod
+Invokes the method with the supplied arguments.
 
-Method syntax???
-Variable syntax???
+### Return
+Completes the method and returns the supplied value, if any.
+
+# Variables
+
+### DeclareVariable
+Declares a new variable which remains in memory for the scope of the current block. Its value can be assigned using the AssignmentOperator. Variables must be a 32-bit integer by default.
+
+# Misc
+
+### Print
+Prints a value to StdOut.
+
+### ReadInput
+Reads values from StdIn.
