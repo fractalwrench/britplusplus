@@ -1,9 +1,3 @@
-### StartProgram
-Denotes the start of a program. There can be only one program in each source file. Otherwise synonymous with StartBlock.
-
-### EndProgram
-Denotes the end of a program. There can be only one program in each source file. Otherwise synonymous with EndBlock.
-
 # Branching
 
 ### If
