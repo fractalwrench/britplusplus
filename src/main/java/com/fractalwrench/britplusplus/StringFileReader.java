@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Reads a file as a string.
+ */
 class StringFileReader {
 
     String readFileContents(File file) {
@@ -17,7 +20,7 @@ class StringFileReader {
             }
             return sb.toString();
         } catch (IOException e) {
-            throw new RuntimeException("Failed to read file", e);
+            throw new RuntimeException(String.format("Failed to read file '%s'", file), e);
         }
     }
 
