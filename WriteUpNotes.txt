@@ -1,0 +1,21 @@
+General Approach: Source code -> Java Bytecode -> Generate class file -> Execute class file
+
+(1)
+Define language syntax precisely, what it can and can't do. Keep it simple stupid.
+
+(2)
+Setup ASM and Parboiled libraries.
+
+(3)
+Generate the simplest possible program, using ASM to generate Java ByteCode which is written to Hello.class.
+
+(4)
+Dynamically execute Hello.class after compilation, using the ClassLoader (this gives a tight feedback loop).
+
+
+(???)
+- Creating an Abstract Syntax Tree, and the Visitor Pattern.
+- Determine what Java bytecodes are required for each keyword, and setup ASM generators accordingly.
+- The JVM structure.
+- Testing!
+
