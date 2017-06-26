@@ -1,8 +1,8 @@
-package com.fractalwrench.bpp;
+package com.fractalwrench.bpp.args;
 
 import java.io.File;
 
-class BppOptions {
+public class BppOptions {
 
     private static final String INPUT = "input";
     private static final String OUTPUT = "output";

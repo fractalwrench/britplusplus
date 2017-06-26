@@ -1,5 +1,10 @@
 package com.fractalwrench.bpp;
 
+import com.fractalwrench.bpp.args.BppOptions;
+import com.fractalwrench.bpp.args.CmdLineParser;
+import com.fractalwrench.bpp.common.Logger;
+import com.fractalwrench.bpp.common.StringFileReader;
+
 import java.io.File;
 import java.io.FileOutputStream;
 

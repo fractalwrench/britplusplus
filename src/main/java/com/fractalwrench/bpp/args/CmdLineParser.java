@@ -1,17 +1,18 @@
-package com.fractalwrench.bpp;
+package com.fractalwrench.bpp.args;
 
+import com.fractalwrench.bpp.common.StringFileReader;
 import org.apache.commons.cli.*;
 
 import java.io.File;
 
-class CmdLineParser {
+public class CmdLineParser {
 
     private static final String INPUT = "input";
     private static final String OUTPUT = "output";
     private static final String VERBOSE = "verbose";
     private static final String DISABLE_AUTORUN = "disable-autorun";
 
-    BppOptions parseBppOption(String[] args, StringFileReader fileReader) {
+    public BppOptions parseBppOption(String[] args, StringFileReader fileReader) {
         Options options = getCmdLineOptions();
         CommandLineParser cmdLineParser = new DefaultParser();
         HelpFormatter helpFormatter = new HelpFormatter();
