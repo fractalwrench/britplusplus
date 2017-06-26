@@ -29,7 +29,6 @@ public class CmdLineParser {
             }
 
             fileReader.validateFile(input);
-            fileReader.validateFile(output);
             return new BppOptions(new File(input), new File(output), verbose == null, disableAutoRun == null);
         } catch (ParseException e) {
             helpFormatter.printHelp("BritPlusPlus", options);
