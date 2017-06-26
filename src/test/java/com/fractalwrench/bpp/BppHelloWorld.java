@@ -8,7 +8,7 @@ public class BppHelloWorld {
 
     @Test
     public void checkHelloWorld() throws Exception {
-        String[] args = {"HelloWorld.bpp"};
+        String[] args = {"samples/HelloWorld.bpp"};
         String helloWorld = BppRunner.run(args);
         assertEquals("Hello, World!", helloWorld);
     }

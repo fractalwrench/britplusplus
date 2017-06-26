@@ -18,7 +18,7 @@ class DynamicClassExecutor {
 
     DynamicClassExecutor(File file, String className) {
         this.file = file;
-        this.className = className;
+        this.className = "Hello";// className;
     }
 
     void execute() throws Exception {

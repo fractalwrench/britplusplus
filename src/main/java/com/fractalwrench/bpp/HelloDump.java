@@ -4,11 +4,11 @@ import org.objectweb.asm.*;
 
 
 /**
- * The ASMified implementation of Hello World. {@link #dump()} generates the java bytecodes into a byte array.
+ * The ASMified implementation of Hello World. {@link #dump(String)} generates the java bytecodes into a byte array.
  */
 public class HelloDump implements Opcodes {
 
-    public static byte[] dump() throws Exception {
+    public static byte[] dump(String name) throws Exception {
 
         ClassWriter cw = new ClassWriter(0);
         FieldVisitor fv;
@@ -17,12 +17,12 @@ public class HelloDump implements Opcodes {
 
         cw.visit(49,
                 ACC_PUBLIC + ACC_SUPER,
-                "Hello",
+                name,
                 null,
                 "java/lang/Object",
                 null);
 
-        cw.visitSource("Hello.java", null);
+        cw.visitSource(name + ".java", null);
 
         {
             mv = cw.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);

@@ -20,14 +20,14 @@ public class BritPlusPlus {
 
         String sourceCode = stringFileReader.readFileContents(bppOptions.getInput());
         ByteCodeGenerator generator = new ByteCodeGenerator();
-        byte[] byteCode = generator.generate(sourceCode);
+        File output = bppOptions.getOutput();
+        byte[] byteCode = generator.generate(sourceCode, output.getName());
 
-        writeByteCodeToFile(byteCode, bppOptions.getOutput());
-        String className = bppOptions.getOutput().getName().replaceAll(".class", "");
+        writeByteCodeToFile(byteCode, output);
+        String className = output.getName();
         DynamicClassExecutor dynamicExecutor = new DynamicClassExecutor(new File("."), className);
         dynamicExecutor.execute();
     }
-
 
     private static void writeByteCodeToFile(byte[] byteCode, File file) {
         try (FileOutputStream fos = new FileOutputStream(file)) {
