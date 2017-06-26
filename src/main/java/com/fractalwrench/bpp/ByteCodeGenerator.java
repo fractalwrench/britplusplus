@@ -1,4 +1,4 @@
-package com.fractalwrench.britplusplus;
+package com.fractalwrench.bpp;
 
 class ByteCodeGenerator {
 
