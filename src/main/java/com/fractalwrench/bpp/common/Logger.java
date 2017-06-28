@@ -1,8 +1,11 @@
 package com.fractalwrench.bpp.common;
 
-public class Logger {
+public final class Logger {
 
     private static boolean enabled = true;
+
+    private Logger() {
+    }
 
     public static void setEnabled(boolean enabled) {
         Logger.enabled = enabled;

@@ -1,6 +1,6 @@
 package com.fractalwrench.bpp.args;
 
-import com.fractalwrench.bpp.common.StringFileReader;
+import com.fractalwrench.bpp.common.FileUtils;
 import org.apache.commons.cli.*;
 
 import java.io.File;
@@ -11,7 +11,7 @@ public class CmdLineParser {
     private static final String VERBOSE = "verbose";
     private static final String DISABLE_AUTORUN = "disable-autorun";
 
-    public BppOptions parseBppOption(String[] args, StringFileReader fileReader) {
+    public CmdLineOptions parseBppOption(String[] args) {
         Options options = getCmdLineOptions();
         CommandLineParser cmdLineParser = new DefaultParser();
         HelpFormatter helpFormatter = new HelpFormatter();
@@ -23,8 +23,8 @@ public class CmdLineParser {
             String disableAutoRun = commandLine.getOptionValue(DISABLE_AUTORUN);
             String output = input.replaceAll("\\.[^.]*$", ".class");
 
-            fileReader.validateFile(input);
-            return new BppOptions(new File(input), new File(output), verbose == null, disableAutoRun == null);
+            FileUtils.validateFile(input);
+            return new CmdLineOptions(new File(input), new File(output), verbose == null, disableAutoRun == null);
         } catch (ParseException e) {
             helpFormatter.printHelp("BritPlusPlus", options);
             System.out.println(e.getMessage());

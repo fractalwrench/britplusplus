@@ -1,9 +1,12 @@
 package com.fractalwrench.bpp;
 
-import com.fractalwrench.bpp.args.BppOptions;
+import com.fractalwrench.bpp.args.CmdLineOptions;
 import com.fractalwrench.bpp.args.CmdLineParser;
+import com.fractalwrench.bpp.ast.ByteCodeGenerator;
 import com.fractalwrench.bpp.common.Logger;
 import com.fractalwrench.bpp.common.StringFileReader;
+import com.fractalwrench.bpp.executor.BppExecutor;
+import com.fractalwrench.bpp.loader.FileClassLoader;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,18 +18,22 @@ public class BritPlusPlus {
 
     public static void main(String[] args) throws Exception {
         StringFileReader stringFileReader = new StringFileReader();
-        BppOptions bppOptions = new CmdLineParser().parseBppOption(args, stringFileReader);
-        Logger.setEnabled(bppOptions.isVerbose());
+        CmdLineOptions cmdLineOptions = new CmdLineParser().parseBppOption(args);
+        Logger.setEnabled(cmdLineOptions.isVerbose());
 
-        String sourceCode = stringFileReader.readFileContents(bppOptions.getInput());
+        String sourceCode = stringFileReader.readFileContents(cmdLineOptions.getInput());
         ByteCodeGenerator generator = new ByteCodeGenerator();
-        File output = bppOptions.getOutput();
+        File output = cmdLineOptions.getOutput();
         byte[] byteCode = generator.generate(sourceCode, output.getName());
 
         writeByteCodeToFile(byteCode, output);
         String className = output.getName();
-        DynamicClassExecutor dynamicExecutor = new DynamicClassExecutor(new File("."), className, new BppExecutor());
-        dynamicExecutor.execute();
+        FileClassLoader fileClassLoader = new FileClassLoader();
+        Class<?> clz = fileClassLoader.loadClassFromFile(new File("."), "Hello"); // FIXME
+        BppExecutor executor = new BppExecutor();
+        executor.execute(clz);
+//        DynamicClassExecutor dynamicExecutor = new DynamicClassExecutor(new File("."), className, new BppExecutor());
+//        dynamicExecutor.execute();
     }
 
     private static void writeByteCodeToFile(byte[] byteCode, File file) {

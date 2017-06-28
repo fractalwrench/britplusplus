@@ -2,19 +2,14 @@ package com.fractalwrench.bpp.args;
 
 import java.io.File;
 
-public class BppOptions {
-
-    private static final String INPUT = "input";
-    private static final String OUTPUT = "output";
-    private static final String VERBOSE = "verbose";
-    private static final String DISABLE_AUTORUN = "disable-autorun";
+public final class CmdLineOptions {
 
     private final File input;
     private final File output;
     private final boolean verbose;
     private final boolean autoRun;
 
-    public BppOptions(File input, File output, boolean verbose, boolean autoRun) {
+    CmdLineOptions(File input, File output, boolean verbose, boolean autoRun) {
         this.input = input;
         this.output = output;
         this.verbose = verbose;
@@ -37,4 +32,13 @@ public class BppOptions {
         return autoRun;
     }
 
+    @Override
+    public String toString() {
+        return "CmdLineOptions{" +
+                "input=" + input +
+                ", output=" + output +
+                ", verbose=" + verbose +
+                ", autoRun=" + autoRun +
+                '}';
+    }
 }

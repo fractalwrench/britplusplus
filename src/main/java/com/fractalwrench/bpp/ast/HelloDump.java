@@ -1,4 +1,4 @@
-package com.fractalwrench.bpp;
+package com.fractalwrench.bpp.ast;
 
 import org.objectweb.asm.*;
 

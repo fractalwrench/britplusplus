@@ -1,13 +1,13 @@
-package com.fractalwrench.bpp;
+package com.fractalwrench.bpp.executor;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class BppExecutor {
 
-    public void execute(Class<?> clz) { // TODO test me!
+    public void execute(Class<?> clz) {
         try {
-            Method main = clz.getMethod("main", String[].class);
+            Method main = clz.getMethod("main", String[].class); // TODO externalise method name
             main.invoke(new Object(), (Object) new String[]{});
         } catch (IllegalAccessException e) {
             throw new RuntimeException("Failed to load generated Java bytecode class", e);

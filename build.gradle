@@ -1,8 +1,10 @@
-group 'com.fractalwrench'
-version '1.0.0'
-
+plugins {
+    id "net.ltgt.apt" version "0.10"
+}
 apply plugin: 'application'
 
+group 'com.fractalwrench'
+version '1.0.0'
 sourceCompatibility = 1.8
 mainClassName = 'com.fractalwrench.bpp.BritPlusPlus'
 
@@ -15,4 +17,7 @@ dependencies {
     compile "asm:asm-commons:3.3.1"
     compile "org.parboiled:parboiled-java:1.1.8"
     compile "commons-cli:commons-cli:1.3.1"
+
+    compile 'com.google.dagger:dagger:2.9'
+    apt 'com.google.dagger:dagger-compiler:2.9'
 }

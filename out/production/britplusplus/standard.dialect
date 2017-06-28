@@ -1,0 +1,27 @@
+UseDialect
+EndProgram
+If
+Else
+While
+StartBlock
+EndBlock
+True
+False
+AdditionOperator
+SubtractionOperator
+MultiplicationOperator
+DivisionOperator
+ModuloOperator
+EqualityOperator (value)
+GreaterThanOperator
+LessThanOperator
+Or
+And
+Not
+AssignmentOperator
+DeclareMethod
+InvokeMethod
+Return
+DeclareVariable
+Print
+ReadInput

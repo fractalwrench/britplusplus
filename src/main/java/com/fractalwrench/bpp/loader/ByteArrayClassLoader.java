@@ -1,11 +1,7 @@
-package com.fractalwrench.bpp;
+package com.fractalwrench.bpp.loader;
 
 public class ByteArrayClassLoader extends ClassLoader {
 
-    @Override
-    protected Class<?> findClass(String name) throws ClassNotFoundException {
-        return super.findClass(name);
-    }
 
     /**
      * Loads a class from a byte array.
