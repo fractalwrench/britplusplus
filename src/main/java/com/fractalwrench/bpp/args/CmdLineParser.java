@@ -21,10 +21,14 @@ public class CmdLineParser {
             String input = commandLine.getOptionValue(INPUT);
             String verbose = commandLine.getOptionValue(VERBOSE);
             String disableAutoRun = commandLine.getOptionValue(DISABLE_AUTORUN);
-            String output = input.replaceAll("\\.[^.]*$", ".class");
+
+            // use the input filename as the output class
 
             FileUtils.validateFile(input);
-            return new CmdLineOptions(new File(input), new File(output), verbose == null, disableAutoRun == null);
+            File outputFile = new File(input.replaceAll("\\.[^.]*$", ".class"));
+            String className = outputFile.getName().replaceAll("\\.class", "");
+
+            return new CmdLineOptions(new File(input), outputFile, className, verbose == null, disableAutoRun == null);
         } catch (ParseException e) {
             helpFormatter.printHelp("BritPlusPlus", options);
             System.out.println(e.getMessage());

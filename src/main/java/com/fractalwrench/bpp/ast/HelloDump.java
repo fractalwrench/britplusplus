@@ -9,7 +9,6 @@ import org.objectweb.asm.*;
 public class HelloDump implements Opcodes {
 
     public static byte[] dump(String name) throws Exception {
-
         ClassWriter cw = new ClassWriter(0);
         FieldVisitor fv;
         MethodVisitor mv;

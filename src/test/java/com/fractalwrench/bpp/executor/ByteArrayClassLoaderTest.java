@@ -1,4 +1,4 @@
-package com.fractalwrench.bpp.loader;
+package com.fractalwrench.bpp.executor;
 
 import org.junit.Test;
 
