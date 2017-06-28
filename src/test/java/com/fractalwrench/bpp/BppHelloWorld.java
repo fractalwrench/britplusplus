@@ -1,5 +1,6 @@
 package com.fractalwrench.bpp;
 
+import com.fractalwrench.bpp.common.StringFileReader;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -8,9 +9,10 @@ public class BppHelloWorld {
 
     @Test
     public void checkHelloWorld() throws Exception {
-        String[] args = {"samples/HelloWorld.bpp"};
-        String helloWorld = BppRunner.run(args);
-        assertEquals("Hello, World!", helloWorld);
+        BppRunner runner = new BppRunner(new ByteArrayClassLoader(), new ByteCodeGenerator(), new StringFileReader(), new BppExecutor());
+        String helloWorld = runner.run("samples/HelloWorld.bpp", "HelloWorld");
+        String expected = "Hello, World!\n";
+        assertEquals(expected, helloWorld);
     }
 
 }

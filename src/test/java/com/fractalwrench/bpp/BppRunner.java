@@ -1,6 +1,9 @@
 package com.fractalwrench.bpp;
 
+import com.fractalwrench.bpp.common.StringFileReader;
+
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.PrintStream;
 
 /**
@@ -9,12 +12,28 @@ import java.io.PrintStream;
  */
 public class BppRunner {
 
-    public static String run(String[] args) throws Exception {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(baos));
-        BritPlusPlus.main(args);
-        byte[] bytes = baos.toByteArray();
-        return new String(bytes);
+    private final ByteArrayClassLoader byteArrayClassLoader;
+    private final ByteCodeGenerator byteCodeGenerator;
+    private final StringFileReader stringFileReader;
+    private final BppExecutor executor;
+
+    public BppRunner(ByteArrayClassLoader byteArrayClassLoader, ByteCodeGenerator byteCodeGenerator, StringFileReader stringFileReader, BppExecutor executor) {
+        this.byteArrayClassLoader = byteArrayClassLoader;
+        this.byteCodeGenerator = byteCodeGenerator;
+        this.stringFileReader = stringFileReader;
+        this.executor = executor;
+    }
+
+    public String run(String filename, String className) throws Exception {
+        File file = new File(filename);
+        String fileContents = stringFileReader.readFileContents(file);
+        byte[] byteCode = byteCodeGenerator.generate(fileContents, className);
+        Class<?> clz = byteArrayClassLoader.loadClassFromByteCode(byteCode, className);
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(os));
+        executor.execute(clz);
+        return new String(os.toByteArray());
     }
 
 }

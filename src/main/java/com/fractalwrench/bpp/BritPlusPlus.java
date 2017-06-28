@@ -25,7 +25,7 @@ public class BritPlusPlus {
 
         writeByteCodeToFile(byteCode, output);
         String className = output.getName();
-        DynamicClassExecutor dynamicExecutor = new DynamicClassExecutor(new File("."), className);
+        DynamicClassExecutor dynamicExecutor = new DynamicClassExecutor(new File("."), className, new BppExecutor());
         dynamicExecutor.execute();
     }
 
