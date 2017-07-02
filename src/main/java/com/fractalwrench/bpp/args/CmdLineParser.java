@@ -38,7 +38,7 @@ public class CmdLineParser {
     private Options getCmdLineOptions() {
         Option verbose = new Option("v", VERBOSE, false, "Enables verbose logging");
         Option disableAutoRun = new Option("d", DISABLE_AUTORUN, false, "Disables automatic running of compiled program");
-        Option sourceInput = new Option("i", INPUT, true, "file ");
+        Option sourceInput = new Option("i", INPUT, true, "Source File used for compiling the program");
         sourceInput.setRequired(true);
 
         Options options = new Options();
