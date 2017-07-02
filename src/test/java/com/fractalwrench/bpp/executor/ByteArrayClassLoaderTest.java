@@ -1,14 +1,34 @@
 package com.fractalwrench.bpp.executor;
 
+import com.fractalwrench.bpp.ast.HelloDump;
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.fail;
+import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class ByteArrayClassLoaderTest {
 
-    @Test
-    public void loadClassFromByteCode() throws Exception {
-        fail();
+    private static final String CLASS_NAME = "Hello";
+    private ByteArrayClassLoader byteArrayClassLoader;
+
+    @Before
+    public void setUp() throws Exception {
+        byteArrayClassLoader = new ByteArrayClassLoader();
     }
 
+    @Test
+    public void loadClassFromByteCode() throws Exception {
+        byte[] dump = HelloDump.dump(CLASS_NAME);
+        Class<?> hello = byteArrayClassLoader.loadClassFromByteCode(dump, CLASS_NAME);
+        assertNotNull(hello);
+        assertEquals(hello.getName(), CLASS_NAME);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void loadClassFromFile() throws Exception {
+        byteArrayClassLoader.loadClassFromFile(new File("fake.txt"), CLASS_NAME);
+    }
 }

@@ -7,6 +7,7 @@ import com.fractalwrench.bpp.common.Logger;
 import com.fractalwrench.bpp.common.StringFileReader;
 import com.fractalwrench.bpp.executor.BppExecutor;
 import com.fractalwrench.bpp.executor.ByteArrayClassLoader;
+import org.apache.commons.cli.ParseException;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,7 +21,16 @@ class BppApp {
     private final ByteArrayClassLoader byteArrayClassLoader = new ByteArrayClassLoader();
 
     void run(String[] args) throws Exception {
-        CmdLineOptions cmdLineOptions = cmdLineParser.parseBppOption(args);
+        CmdLineOptions cmdLineOptions = null;
+
+        try {
+            cmdLineOptions = cmdLineParser.parseBppOption(args);
+        }
+        catch (ParseException e) {
+            System.out.println(e.getMessage());
+            System.exit(-1);
+        }
+
         Logger.setEnabled(cmdLineOptions.isVerbose());
 
         String sourceCode = stringFileReader.readFileContents(cmdLineOptions.getInput());

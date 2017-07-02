@@ -11,7 +11,7 @@ public class CmdLineParser {
     private static final String VERBOSE = "verbose";
     private static final String DISABLE_AUTORUN = "disable-autorun";
 
-    public CmdLineOptions parseBppOption(String[] args) {
+    public CmdLineOptions parseBppOption(String[] args) throws ParseException {
         Options options = getCmdLineOptions();
         CommandLineParser cmdLineParser = new DefaultParser();
         HelpFormatter helpFormatter = new HelpFormatter();
@@ -19,8 +19,8 @@ public class CmdLineParser {
         try {
             CommandLine commandLine = cmdLineParser.parse(options, args);
             String input = commandLine.getOptionValue(INPUT);
-            String verbose = commandLine.getOptionValue(VERBOSE);
-            String disableAutoRun = commandLine.getOptionValue(DISABLE_AUTORUN);
+            boolean verbose = commandLine.hasOption(VERBOSE);
+            boolean disableAutoRun = !commandLine.hasOption(DISABLE_AUTORUN);
 
             // use the input filename as the output class
 
@@ -28,12 +28,10 @@ public class CmdLineParser {
             File outputFile = new File(input.replaceAll("\\.[^.]*$", ".class"));
             String className = outputFile.getName().replaceAll("\\.class", "");
 
-            return new CmdLineOptions(new File(input), outputFile, className, verbose == null, disableAutoRun == null);
+            return new CmdLineOptions(new File(input), outputFile, className, verbose, disableAutoRun);
         } catch (ParseException e) {
             helpFormatter.printHelp("BritPlusPlus", options);
-            System.out.println(e.getMessage());
-            System.exit(-1);
-            return null;
+            throw e;
         }
     }
 
