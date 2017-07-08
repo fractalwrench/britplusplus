@@ -38,7 +38,7 @@ public class BppRunner {
         this.executor = executor;
     }
 
-    public String run(String filename, String className) throws Exception {
+    public String run(String filename, String className, String[] args) throws Exception {
         File file = new File(filename);
         String fileContents = stringFileReader.readFileContents(file);
         byte[] byteCode = byteCodeGenerator.generate(fileContents, className);
@@ -46,7 +46,7 @@ public class BppRunner {
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         System.setOut(new PrintStream(os));
-        executor.execute(clz);
+        executor.execute(clz, args);
         return new String(os.toByteArray());
     }
 

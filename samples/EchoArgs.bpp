@@ -1,0 +1,4 @@
+Begin Dialect
+Var text = GetArg
+Print text
+End Dialect

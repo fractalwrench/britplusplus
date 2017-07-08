@@ -18,8 +18,13 @@ class BppTestCase {
         runner = new BppRunner(new ByteArrayClassLoader(), new ByteCodeGenerator(), new StringFileReader(), new BppExecutor());
     }
 
-    protected void runBppSample(String sampleName, String className, String expectedOutput) throws Exception {
-        String observedOutput = runner.run("samples/" + sampleName, className);
+    protected void runBppSample(String sampleName, String expectedOutput) throws Exception {
+        runBppSample(sampleName, new String[]{}, expectedOutput);
+    }
+
+    protected void runBppSample(String sampleName, String[] args, String expectedOutput) throws Exception {
+        String filename = "samples/" + sampleName + ".bpp";
+        String observedOutput = runner.run(filename, sampleName, args);
         assertEquals(expectedOutput, observedOutput);
     }
 

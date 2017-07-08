@@ -40,7 +40,7 @@ class BppApp {
         File outputFile = cmdLineOptions.getOutput();
         writeByteCodeToFile(byteCode, outputFile);
         Class<?> clz = byteArrayClassLoader.loadClassFromFile(outputFile, className);
-        executor.execute(clz);
+        executor.execute(clz, args);
     }
 
     private void writeByteCodeToFile(byte[] byteCode, File file) {

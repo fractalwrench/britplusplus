@@ -6,7 +6,7 @@ public class BppHelloWorld extends BppTestCase {
 
     @Test
     public void checkHelloWorld() throws Exception {
-        runBppSample("HelloWorld.bpp", "HelloWorld", "Hello, World!\n");
+        runBppSample("HelloWorld", "Hello, World!\n");
     }
 
 }
