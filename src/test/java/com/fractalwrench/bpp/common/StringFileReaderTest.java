@@ -14,7 +14,7 @@ public class StringFileReaderTest {
         URL resource = getClass().getClassLoader().getResource("input.txt");
         String file = resource.getFile();
         String fileContents = new StringFileReader().readFileContents(new File(file));
-        assertEquals("Test!", fileContents);
+        assertEquals("Test!\n", fileContents);
     }
 
     @Test(expected = RuntimeException.class)

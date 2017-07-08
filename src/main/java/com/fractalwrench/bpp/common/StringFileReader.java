@@ -17,6 +17,7 @@ public class StringFileReader {
 
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
+                sb.append("\n");
             }
             return sb.toString();
         } catch (IOException e) {
