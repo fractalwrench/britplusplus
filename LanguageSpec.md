@@ -90,6 +90,3 @@ Declares a new variable which remains in memory for the scope of the current blo
 
 ### Print
 Prints a value to StdOut.
-
-### ReadInput
-Reads values from StdIn.

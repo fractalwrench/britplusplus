@@ -1,0 +1,13 @@
+Begin Dialect
+
+If True
+    Print "One"
+Else
+    Print "Should never happen"
+
+If False
+    Print "Should never happen"
+Else
+    Print "Two"
+
+End Dialect

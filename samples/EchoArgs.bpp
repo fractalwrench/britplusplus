@@ -1,4 +1,6 @@
 Begin Dialect
-Var text = GetArg
+
+DeclareVariable text = GetArg
 Print text
+
 End Dialect
