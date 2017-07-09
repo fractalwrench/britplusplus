@@ -1,4 +1,4 @@
-package com.fractalwrench.bpp.common;
+package com.fractalwrench.bpp;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -1,4 +1,4 @@
-package com.fractalwrench.bpp.common;
+package com.fractalwrench.bpp;
 
 public final class Logger {
 

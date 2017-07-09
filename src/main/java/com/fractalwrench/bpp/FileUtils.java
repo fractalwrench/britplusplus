@@ -1,17 +1,17 @@
-package com.fractalwrench.bpp.common;
+package com.fractalwrench.bpp;
 
 import java.io.File;
 
-public final class FileUtils {
+final class FileUtils {
 
     private FileUtils() {
     }
 
-    public static File validateFile(String fileName) throws RuntimeException {
+    static File validateFile(String fileName) throws RuntimeException {
         return validateFile(new File(fileName));
     }
 
-    public static File validateFile(File file) throws RuntimeException {
+    static File validateFile(File file) throws RuntimeException {
         if (file == null) {
             throw new IllegalArgumentException("Cannot read filename 'null'!");
         }

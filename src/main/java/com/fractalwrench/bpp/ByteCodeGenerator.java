@@ -1,4 +1,6 @@
-package com.fractalwrench.bpp.ast;
+package com.fractalwrench.bpp;
+
+import com.fractalwrench.bpp.internal.ast.HelloDump;
 
 public class ByteCodeGenerator {
 

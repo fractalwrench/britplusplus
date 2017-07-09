@@ -1,12 +1,5 @@
 package com.fractalwrench.bpp;
 
-import com.fractalwrench.bpp.args.CmdLineOptions;
-import com.fractalwrench.bpp.args.CmdLineParser;
-import com.fractalwrench.bpp.ast.ByteCodeGenerator;
-import com.fractalwrench.bpp.common.Logger;
-import com.fractalwrench.bpp.common.StringFileReader;
-import com.fractalwrench.bpp.executor.BppExecutor;
-import com.fractalwrench.bpp.executor.ByteArrayClassLoader;
 import org.apache.commons.cli.ParseException;
 
 import java.io.File;

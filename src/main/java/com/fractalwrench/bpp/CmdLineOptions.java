@@ -1,8 +1,8 @@
-package com.fractalwrench.bpp.args;
+package com.fractalwrench.bpp;
 
 import java.io.File;
 
-public final class CmdLineOptions {
+final class CmdLineOptions {
 
     private final File input;
     private final File output;
@@ -18,23 +18,23 @@ public final class CmdLineOptions {
         this.autoRun = autoRun;
     }
 
-    public File getInput() {
+    File getInput() {
         return input;
     }
 
-    public File getOutput() {
+    File getOutput() {
         return output;
     }
 
-    public boolean isVerbose() {
+    boolean isVerbose() {
         return verbose;
     }
 
-    public boolean isAutoRun() {
+    boolean isAutoRun() {
         return autoRun;
     }
 
-    public String getOutputClassName() {
+    String getOutputClassName() {
         return outputClassName;
     }
 

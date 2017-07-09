@@ -1,4 +1,4 @@
-package com.fractalwrench.bpp.executor;
+package com.fractalwrench.bpp;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

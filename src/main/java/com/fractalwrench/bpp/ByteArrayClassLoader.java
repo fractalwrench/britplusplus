@@ -1,6 +1,4 @@
-package com.fractalwrench.bpp.executor;
-
-import com.fractalwrench.bpp.common.FileUtils;
+package com.fractalwrench.bpp;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +18,7 @@ public class ByteArrayClassLoader extends ClassLoader {
         return defineClass(name, bytecode, 0, bytecode.length);
     }
 
-    public Class<?> loadClassFromFile(File file, String className) throws IOException, ClassNotFoundException {
+    Class<?> loadClassFromFile(File file, String className) throws IOException, ClassNotFoundException {
         FileUtils.validateFile(file);
         byte[] bytes = Files.readAllBytes(Paths.get(file.toURI()));
         return loadClassFromByteCode(bytes, className);

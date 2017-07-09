@@ -1,10 +1,10 @@
 package com.fractalwrench.bpp.programs;
 
 import com.fractalwrench.bpp.BppRunner;
-import com.fractalwrench.bpp.ast.ByteCodeGenerator;
-import com.fractalwrench.bpp.common.StringFileReader;
-import com.fractalwrench.bpp.executor.BppExecutor;
-import com.fractalwrench.bpp.executor.ByteArrayClassLoader;
+import com.fractalwrench.bpp.ByteCodeGenerator;
+import com.fractalwrench.bpp.StringFileReader;
+import com.fractalwrench.bpp.BppExecutor;
+import com.fractalwrench.bpp.ByteArrayClassLoader;
 import org.junit.Before;
 
 import static org.junit.Assert.assertEquals;

@@ -1,4 +1,4 @@
-package com.fractalwrench.bpp.args;
+package com.fractalwrench.bpp;
 
 import org.apache.commons.cli.ParseException;
 import org.junit.Before;

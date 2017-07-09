@@ -1,10 +1,5 @@
 package com.fractalwrench.bpp;
 
-import com.fractalwrench.bpp.ast.ByteCodeGenerator;
-import com.fractalwrench.bpp.common.StringFileReader;
-import com.fractalwrench.bpp.executor.BppExecutor;
-import com.fractalwrench.bpp.executor.ByteArrayClassLoader;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;

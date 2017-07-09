@@ -1,6 +1,6 @@
-package com.fractalwrench.bpp.executor;
+package com.fractalwrench.bpp;
 
-import com.fractalwrench.bpp.ast.HelloDump;
+import com.fractalwrench.bpp.internal.ast.HelloDump;
 import org.junit.Before;
 import org.junit.Test;
 
