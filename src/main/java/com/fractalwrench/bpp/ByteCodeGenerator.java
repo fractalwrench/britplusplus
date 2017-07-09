@@ -1,12 +1,13 @@
 package com.fractalwrench.bpp;
 
-import com.fractalwrench.bpp.internal.ast.HelloDump;
+import com.fractalwrench.bpp.internal.ast.RootNode;
+import org.parboiled.BaseParser;
 
-public class ByteCodeGenerator {
+public class ByteCodeGenerator extends BaseParser {
 
     public byte[] generate(String sourceCode, String name) throws Exception {
-        // TODO implement me!
-        return HelloDump.dump(name);
+        // TODO use BppParser!
+        return RootNode.dump(name);
     }
 
 }

@@ -6,7 +6,7 @@ import org.objectweb.asm.*;
 /**
  * The ASMified implementation of Hello World. {@link #dump(String)} generates the java bytecodes into a byte array.
  */
-public class HelloDump implements Opcodes {
+public class RootNode implements Opcodes {
 
     public static byte[] dump(String name) throws Exception {
         ClassWriter cw = new ClassWriter(0);

@@ -1,6 +1,6 @@
 package com.fractalwrench.bpp;
 
-import com.fractalwrench.bpp.internal.ast.HelloDump;
+import com.fractalwrench.bpp.internal.ast.RootNode;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ public class ByteArrayClassLoaderTest {
 
     @Test
     public void loadClassFromByteCode() throws Exception {
-        byte[] dump = HelloDump.dump(CLASS_NAME);
+        byte[] dump = RootNode.dump(CLASS_NAME);
         Class<?> hello = byteArrayClassLoader.loadClassFromByteCode(dump, CLASS_NAME);
         assertNotNull(hello);
         assertEquals(hello.getName(), CLASS_NAME);
