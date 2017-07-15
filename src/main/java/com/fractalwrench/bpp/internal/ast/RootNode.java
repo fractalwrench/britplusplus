@@ -4,11 +4,11 @@ import org.objectweb.asm.*;
 
 
 /**
- * The ASMified implementation of Hello World. {@link #dump(String)} generates the java bytecodes into a byte array.
+ * The ASMified implementation of Hello World. {@link #dump(String, String)} generates the java bytecodes into a byte array.
  */
 public class RootNode implements Opcodes {
 
-    public static byte[] dump(String name) throws Exception {
+    public static byte[] dump(String name, String printVal) throws Exception {
         ClassWriter cw = new ClassWriter(0);
         FieldVisitor fv;
         MethodVisitor mv;
@@ -45,7 +45,7 @@ public class RootNode implements Opcodes {
                     "java/lang/System",
                     "out",
                     "Ljava/io/PrintStream;");
-            mv.visitLdcInsn("Hello, World!");
+            mv.visitLdcInsn(printVal);
             mv.visitMethodInsn(INVOKEVIRTUAL,
                     "java/io/PrintStream",
                     "println",

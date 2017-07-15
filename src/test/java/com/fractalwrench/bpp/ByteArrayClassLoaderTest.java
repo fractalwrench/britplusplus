@@ -21,7 +21,7 @@ public class ByteArrayClassLoaderTest {
 
     @Test
     public void loadClassFromByteCode() throws Exception {
-        byte[] dump = RootNode.dump(CLASS_NAME);
+        byte[] dump = RootNode.dump(CLASS_NAME, "");
         Class<?> hello = byteArrayClassLoader.loadClassFromByteCode(dump, CLASS_NAME);
         assertNotNull(hello);
         assertEquals(hello.getName(), CLASS_NAME);
