@@ -1,18 +1,26 @@
 package com.fractalwrench.bpp.internal.ast;
 
-import org.parboiled.BaseParser;
-import org.parboiled.Node;
-import org.parboiled.Rule;
+import org.parboiled.*;
+import org.parboiled.annotations.BuildParseTree;
+import org.parboiled.errors.ErrorUtils;
 import org.parboiled.parserunners.ReportingParseRunner;
 import org.parboiled.support.ParsingResult;
+import org.parboiled.support.ValueStack;
+import org.parboiled.trees.ImmutableBinaryTreeNode;
 
-public class BppParser extends BaseParser {
+@BuildParseTree
+public class BppParser extends BaseParser<BppParser.MyNode> {
 
-    public Rule Print() {
-        return Sequence("Print", OneOrMore(WhiteSpace()),  OneOrMore(StringLiteral()));
+    Rule Print() {
+        return Sequence(
+                "Print",
+                OneOrMore(WhiteSpace()),
+                OneOrMore(StringLiteral()),
+                push(new MyNode(null, null))
+        );
     }
 
-    public Rule StringLiteral() {
+    Rule StringLiteral() {
         return Sequence(
                 '"',
                 ZeroOrMore(
@@ -25,26 +33,34 @@ public class BppParser extends BaseParser {
         );
     }
 
-    public Rule getEscapeCharRules() {
+    Rule getEscapeCharRules() {
         return Sequence('\\', AnyOf("\"\'\\"));
     }
 
-    public Rule WhiteSpace() {
+    Rule WhiteSpace() {
         return AnyOf(" \n\t\r");
+    }
+
+    Rule Root() {
+        return OneOrMore(
+                Print()
+                );
     }
 
     public byte[] parse(String program, String name) throws Exception {
         Rule rule = Print();
-        ReportingParseRunner<Object> parseRunner = new ReportingParseRunner<>(rule);
-        ParsingResult<Object> result = parseRunner.run(program);
+        ReportingParseRunner<MyNode> parseRunner = new ReportingParseRunner<>(rule);
+        ParsingResult<MyNode> result = parseRunner.run(program);
 
-        if (!result.matched) { // TODO test!
+        if (result.hasErrors() || !result.matched) {
+            ErrorUtils.printParseErrors(result);
             throw new BppParseException();
         }
 
-        Node<Object> root = result.parseTreeRoot;
+        Node<MyNode> root = result.parseTreeRoot;
+        ValueStack<MyNode> valueStack = result.valueStack;
 
-        Node<Object> printValNode = root.getChildren().get(2);
+        Node<MyNode> printValNode = root.getChildren().get(2);
         int start = printValNode.getStartIndex() + 1; // adjust for quote char
         int end = printValNode.getEndIndex() - 1; // adjust for quote char
         String printVal = program.substring(start, end);
@@ -55,10 +71,14 @@ public class BppParser extends BaseParser {
         return RootNode.dump(name, printVal);
     }
 
-    private static class BppParseException extends Exception {
 
+    private static class BppParseException extends Exception {
     }
 
+    public static class MyNode extends ImmutableBinaryTreeNode<MyNode> {
 
-
+        public MyNode(MyNode left, MyNode right) {
+            super(left, right);
+        }
+    }
 }
