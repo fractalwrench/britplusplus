@@ -21,15 +21,10 @@ public class BppParser extends BaseParser<AstNode> {
         return Sequence(
                 "Print",
                 OneOrMore(WhiteSpace()),
-                OneOrMore(StringLiteral()),
-                new Action<Object>() {
-                    @Override
-                    public boolean run(Context<Object> context) {
-                        ValueStack<Object> valueStack = context.getValueStack();
-                        return true;
-                    }
-                },
-                push(new PrintNode(matchOrDefault(""    ), null, null)) // push the print node
+                Sequence(
+                        StringLiteral(),
+                        push(new PrintNode(match(), null, null))
+                )
         );
     }
 

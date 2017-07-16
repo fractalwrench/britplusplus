@@ -12,10 +12,11 @@ public class PrintNode extends AstNode implements Opcodes {
     public PrintNode(String input, AstNode left, AstNode right) {
         super(left, right);
         this.input = input;
+        this.input = input.substring(1, input.length() - 1); // FIXME hack
     }
 
     public void generate(ClassWriter cw) {
-
+        AstNode left = left();
 
 
         MethodVisitor mv;
