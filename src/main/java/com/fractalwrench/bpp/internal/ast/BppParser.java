@@ -6,17 +6,30 @@ import org.parboiled.errors.ErrorUtils;
 import org.parboiled.parserunners.ReportingParseRunner;
 import org.parboiled.support.ParsingResult;
 import org.parboiled.support.ValueStack;
-import org.parboiled.trees.ImmutableBinaryTreeNode;
 
 @BuildParseTree
-public class BppParser extends BaseParser<BppParser.MyNode> {
+public class BppParser extends BaseParser<AstNode> {
+
+    Rule Root() {
+        return ZeroOrMore(
+                Print(),
+                push(new RootNode(peek(), null)) // add the print node by popping the left
+        );
+    }
 
     Rule Print() {
         return Sequence(
                 "Print",
                 OneOrMore(WhiteSpace()),
                 OneOrMore(StringLiteral()),
-                push(new MyNode(null, null))
+                new Action<Object>() {
+                    @Override
+                    public boolean run(Context<Object> context) {
+                        ValueStack<Object> valueStack = context.getValueStack();
+                        return true;
+                    }
+                },
+                push(new PrintNode(matchOrDefault(""    ), null, null)) // push the print node
         );
     }
 
@@ -41,44 +54,32 @@ public class BppParser extends BaseParser<BppParser.MyNode> {
         return AnyOf(" \n\t\r");
     }
 
-    Rule Root() {
-        return OneOrMore(
-                Print()
-                );
-    }
-
     public byte[] parse(String program, String name) throws Exception {
-        Rule rule = Print();
-        ReportingParseRunner<MyNode> parseRunner = new ReportingParseRunner<>(rule);
-        ParsingResult<MyNode> result = parseRunner.run(program);
+        Rule rule = Root();
+        ReportingParseRunner<AstNode> parseRunner = new ReportingParseRunner<>(rule);
+        ParsingResult<AstNode> result = parseRunner.run(program);
 
         if (result.hasErrors() || !result.matched) {
             ErrorUtils.printParseErrors(result);
             throw new BppParseException();
         }
 
-        Node<MyNode> root = result.parseTreeRoot;
-        ValueStack<MyNode> valueStack = result.valueStack;
+        Node<AstNode> root = result.parseTreeRoot;
+        ValueStack<AstNode> valueStack = result.valueStack;
 
-        Node<MyNode> printValNode = root.getChildren().get(2);
-        int start = printValNode.getStartIndex() + 1; // adjust for quote char
-        int end = printValNode.getEndIndex() - 1; // adjust for quote char
-        String printVal = program.substring(start, end);
+
+        RootNode rootNode = (RootNode) valueStack.pop();
+        AstNode pop = valueStack.pop();
 
         // TODO this should return the rootnode which represents an Abstract Syntax Tree.
         // The root node can in turn generate the bytecode using ASM and the visitor pattern.
 
-        return RootNode.dump(name, printVal);
+        return rootNode.generateClass(name, "Hello Test BPP");
+//        return new RootNode(null, null).generateClass(name, "");
     }
 
 
     private static class BppParseException extends Exception {
     }
-
-    public static class MyNode extends ImmutableBinaryTreeNode<MyNode> {
-
-        public MyNode(MyNode left, MyNode right) {
-            super(left, right);
-        }
-    }
+    
 }
