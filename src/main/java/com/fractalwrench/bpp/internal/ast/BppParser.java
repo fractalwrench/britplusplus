@@ -12,8 +12,14 @@ public class BppParser extends BaseParser<AstNode> {
 
     Rule Root() {
         return ZeroOrMore(
-                Print(),
+                Block(),
                 push(new RootNode(peek(), null)) // add the print node by popping the left
+        );
+    }
+
+    Rule Block() {
+        return OneOrMore(
+                Print()
         );
     }
 
@@ -24,7 +30,7 @@ public class BppParser extends BaseParser<AstNode> {
                 Sequence(
                         StringLiteral(),
                         push(new PrintNode(match(), null, null))
-                )
+                ), OneOrMore(WhiteSpace())
         );
     }
 
@@ -59,12 +65,10 @@ public class BppParser extends BaseParser<AstNode> {
             throw new BppParseException();
         }
 
-        Node<AstNode> root = result.parseTreeRoot;
+//        Node<AstNode> root = result.parseTreeRoot;
         ValueStack<AstNode> valueStack = result.valueStack;
-
-
         RootNode rootNode = (RootNode) valueStack.pop();
-        AstNode pop = valueStack.pop();
+//        AstNode pop = valueStack.pop();
 
         // TODO this should return the rootnode which represents an Abstract Syntax Tree.
         // The root node can in turn generate the bytecode using ASM and the visitor pattern.
@@ -76,5 +80,5 @@ public class BppParser extends BaseParser<AstNode> {
 
     private static class BppParseException extends Exception {
     }
-    
+
 }
