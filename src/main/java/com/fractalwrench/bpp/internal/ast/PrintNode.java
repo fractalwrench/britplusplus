@@ -1,6 +1,5 @@
 package com.fractalwrench.bpp.internal.ast;
 
-import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
@@ -15,16 +14,7 @@ public class PrintNode extends AstNode implements Opcodes {
         this.input = input.substring(1, input.length() - 1); // FIXME hack
     }
 
-    public void generate(ClassWriter cw) {
-        AstNode left = left();
-
-
-        MethodVisitor mv;
-        mv = cw.visitMethod(ACC_PUBLIC + ACC_STATIC,
-                "main",
-                "([Ljava/lang/String;)V",
-                null,
-                null);
+    public void generate(MethodVisitor mv) {
         mv.visitFieldInsn(GETSTATIC,
                 "java/lang/System",
                 "out",
@@ -35,9 +25,6 @@ public class PrintNode extends AstNode implements Opcodes {
                 "println",
                 "(Ljava/lang/String;)V",
                 false);
-        mv.visitInsn(RETURN);
-        mv.visitMaxs(2, 1);
-        mv.visitEnd();
     }
 
     @Override

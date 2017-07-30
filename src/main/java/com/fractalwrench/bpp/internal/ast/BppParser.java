@@ -89,7 +89,7 @@ public class BppParser extends BaseParser<AstNode> {
         // TODO this should return the rootnode which represents an Abstract Syntax Tree.
         // The root node can in turn generate the bytecode using ASM and the visitor pattern.
 
-        return rootNode.generateClass(name, "Hello Test BPP");
+        return rootNode.generateClass(name);
 //        return new RootNode(null, null).generateClass(name, "");
     }
 

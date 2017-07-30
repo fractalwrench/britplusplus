@@ -21,4 +21,8 @@ public class BlockNode extends AstNode {
     public void addPrintNode(PrintNode node) {
         printNodes.add(node);
     }
+
+    public List<PrintNode> getPrintNodes() {
+        return printNodes;
+    }
 }
