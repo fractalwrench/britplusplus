@@ -29,7 +29,8 @@ public class BppParser extends BaseParser<AstNode> {
                 OneOrMore(WhiteSpace()),
                 Sequence(
                         StringLiteral(),
-                        push(new PrintNode(match(), null, null))
+
+                        push(new PrintNode(match(), pop(), null))
                 ), OneOrMore(WhiteSpace())
         );
     }
@@ -41,7 +42,8 @@ public class BppParser extends BaseParser<AstNode> {
                         FirstOf(
                                 getEscapeCharRules(),
                                 Sequence(TestNot(AnyOf("\r\n\"\\")), ANY)
-                        )
+                        ),
+                        push(new StringLiteralNode(match(), null, null))
                 ).suppressSubnodes(),
                 '"'
         );
