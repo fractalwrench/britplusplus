@@ -6,20 +6,36 @@ import org.parboiled.errors.ErrorUtils;
 import org.parboiled.parserunners.ReportingParseRunner;
 import org.parboiled.support.ParsingResult;
 import org.parboiled.support.ValueStack;
+import org.parboiled.transform.BaseAction;
 
 @BuildParseTree
 public class BppParser extends BaseParser<AstNode> {
 
     Rule Root() {
         return ZeroOrMore(
+                push(null),
                 Block(),
                 push(new RootNode(peek(), null)) // add the print node by popping the left
         );
     }
 
     Rule Block() {
+        BlockNode blockNode = new BlockNode(null, null);
+
         return OneOrMore(
-                Print()
+                push(blockNode),
+                Print(),
+//                push(new BlockNode(pop(), pop())),
+                new BaseAction("") {
+
+                    @Override
+                    public boolean run(Context context) {
+                        ValueStack valueStack = context.getValueStack();
+                        PrintNode printNode = (PrintNode) valueStack.pop();
+                        blockNode.addPrintNode(printNode);
+                        return true;
+                    }
+                }
         );
     }
 
@@ -29,8 +45,7 @@ public class BppParser extends BaseParser<AstNode> {
                 OneOrMore(WhiteSpace()),
                 Sequence(
                         StringLiteral(),
-
-                        push(new PrintNode(match(), pop(), null))
+                        push(new PrintNode(match(), null, null))
                 ), OneOrMore(WhiteSpace())
         );
     }
@@ -42,8 +57,7 @@ public class BppParser extends BaseParser<AstNode> {
                         FirstOf(
                                 getEscapeCharRules(),
                                 Sequence(TestNot(AnyOf("\r\n\"\\")), ANY)
-                        ),
-                        push(new StringLiteralNode(match(), null, null))
+                        )
                 ).suppressSubnodes(),
                 '"'
         );
