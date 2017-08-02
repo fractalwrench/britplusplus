@@ -3,17 +3,43 @@ package com.fractalwrench.bpp.internal.ast;
 import org.parboiled.*;
 import org.parboiled.annotations.BuildParseTree;
 import org.parboiled.errors.ErrorUtils;
+import org.parboiled.matchers.ZeroOrMoreMatcher;
 import org.parboiled.parserunners.ReportingParseRunner;
 import org.parboiled.support.ParsingResult;
 import org.parboiled.support.ValueStack;
 import org.parboiled.transform.BaseAction;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @BuildParseTree
 public class BppParser extends BaseParser<AstNode> {
+
+    private static final String KEYWORD_PRINT = "Print";
+
+    Rule ContextSwitch() {
+        return OneOrMore(
+                String("Begin Dialect"),
+                ContextSwitchAction()
+        );
+    }
+
+    BaseAction ContextSwitchAction() {
+        return new BaseAction("") {
+            @Override
+            public boolean run(Context context) {
+                String match = match();
+                // TODO change keywords by looking up map!!!
+                return true;
+            }
+        };
+    }
 
     Rule Root() {
         return ZeroOrMore(
                 push(null),
+                ContextSwitch(),
                 Block(),
                 push(new RootNode(peek(), null)) // add the print node by popping the left
         );
@@ -39,14 +65,15 @@ public class BppParser extends BaseParser<AstNode> {
         );
     }
 
-    Rule Print() {
+    Rule Print() { // TODO whitespace!
         return Sequence(
-                "Print",
+                KEYWORD_PRINT,
                 OneOrMore(WhiteSpace()),
                 Sequence(
                         StringLiteral(),
                         push(new PrintNode(match(), null, null))
-                ), OneOrMore(WhiteSpace())
+                ),
+                OneOrMore(WhiteSpace())
         );
     }
 

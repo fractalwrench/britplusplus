@@ -6,3 +6,4 @@ samples/*.class
 samples/*.jar
 samples/*.sh
 *.iml
+out/
